@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identification</title>
+    <link rel="stylesheet" href="style4.css">
+</head>
+<body>
+    <div class="txt" id="txt">
+        <b>K</b><b>H</b><b>A</b><b>L</b><b>E</b><b>D</b>
+</div>
+
+<div class="container">
+   
+    <h2>Calculez votre moyenne</h2>
+    <form id="moyenneForm">
+        <input type="text" id="cin" placeholder="CIN">
+        <input type="text" id="nom" placeholder="Nom">
+        <input type="text" id="prenom" placeholder="Prénom">
+        <button type="button" onclick="calculezMoyenne()">Calculez votre moyenne</button>
+    </form>
+</div>
+
+<script>
+    function calculezMoyenne() {
+        const cin = document.getElementById("cin").value.trim();
+        const nom = document.getElementById("nom").value.trim();
+        const prenom = document.getElementById("prenom").value.trim();
+
+        if (!cin || !nom || !prenom) {
+            alert("Veuillez remplir tous les champs (CIN, Nom et Prénom).");
+            return;
+        }
+
+        const moyennes = [];
+        for (let i = 1; i <= 3; i++) {
+            let moyenne;
+            do {
+                moyenne = prompt(`Entrez la moyenne pour le trimestre ${i} (entre 0 et 20) :`);
+                if (moyenne === null) return;
+                moyenne = parseFloat(moyenne);
+                if (isNaN(moyenne) || moyenne < 0 || moyenne > 20) {
+                    alert("Veuillez saisir une moyenne valide entre 0 et 20.");
+                }
+            } while (isNaN(moyenne) || moyenne < 0 || moyenne > 20);
+            moyennes.push(moyenne);
+        }
+
+        const moyenneGenerale = moyennes.reduce((a, b) => a + b) / moyennes.length;
+        
+        let mention;
+        if (moyenneGenerale < 10) {
+            mention = "C'est peu!";
+        } else if (moyenneGenerale >= 10 && moyenneGenerale < 12) {
+            mention = "Passable";
+        } else if (moyenneGenerale >= 12 && moyenneGenerale < 14) {
+            mention = "Assez bien";
+        } else if (moyenneGenerale >= 14 && moyenneGenerale < 16) {
+            mention = "Bien";
+        } else {
+            mention = "Excellent";
+        }
+
+        alert(`Bonjour ${prenom} ${nom} (CIN: ${cin}), votre moyenne générale est : ${moyenneGenerale.toFixed(2)}. Mention : ${mention}`);
+    }
+</script>
+
+</body>
+</html>
